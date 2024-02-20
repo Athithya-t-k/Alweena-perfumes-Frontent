@@ -45,7 +45,7 @@ function Login() {
             </div>
             
           </div>
-         <p><Link to = "/reset">Forgotten Password</Link></p>
+         <p><Link to = "/reset">Forget Password</Link></p>
           <div>
             <button className='bg-emerald-950 text-white w-16 h-10 rounded-xl'>Login
 

@@ -1,13 +1,20 @@
 import React from 'react'
-import { BrowserRouter, Routes } from 'react-router-dom'
-import RouterHome from './Router/RouterHome'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import UserRouter from './Router/UserRouter'
 
 
 function App() {
   return (
     <div>
       <BrowserRouter>
-      <RouterHome/>
+      <Routes>
+        <Route path="/*" element ={<UserRouter/>} ></Route>
+        {/* <Route path=""></Route>
+        <Route path=""></Route>
+        <Route path=""></Route>
+        <Route path=""></Route> */}
+
+      </Routes>
       </BrowserRouter>
     </div>
   )
