@@ -11,6 +11,7 @@ function SignUp() {
 
   const [error, setErr] = useState('')
   const [page, setPage] = useState(false)
+ 
 
   const [data, setData] = useState({
     UserName: "eggvd",

@@ -1,17 +1,41 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+
 
 function Login() {
+
+  const [username,setUsername]= useState("")
+  const[password,setPassword]=useState("")
+  const [error,setError] = useState("")
+
+  const backendUrl = "http://localhost:4004/login-post"
+
+  async function handleSubmit(event){
+    event.preventDefault();
+    console.log(username,password);
+
+
+    try{
+      await axios.post(backendUrl,{
+        username,
+        password
+      });
+      
+    }catch(error){
+      console.log("error occured",error);
+    }
+  }
   return (
     <div>
       <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign up for an account
+            Login your Account
           </h2>
         </div>
-        <form className="mt-8 space-y-6">
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
 
           <div>
@@ -22,6 +46,8 @@ function Login() {
                 id="UserName"
                 name="UserName"
                 type="UserName"
+                value ={username}
+                onChange={(event)=>setUsername(event.target.value)}
                 autoComplete="UserName"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
@@ -37,6 +63,8 @@ function Login() {
                 id="password"
                 name="password"
                 type="password"
+                value={password}
+                onChange={(event)=>setPassword(event.target.value)}
                 autoComplete="current-password"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
@@ -53,7 +81,9 @@ function Login() {
              <p > <Link to = "/signup">Create Account</Link> </p>
           </div>
         </form>
+        <p id='error'>{error}</p>
       </div>
+
     </div>
     </div>
   )

@@ -5,6 +5,7 @@ function VerifyOtp() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [error,setError] = useState()
+ 
 
   const otpInputs = Array.from({ length: 6 }, () => useRef(null));
 
@@ -22,22 +23,27 @@ function VerifyOtp() {
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
+    
   };
 
   const handleSubmit = async (event) => {
+
     event.preventDefault();
     // Handle form submission here, e.g., validate OTP
+
     try{
-    console.log('Phone Number:', phoneNumber);
-    const response =await axios.post("http://localhost:4004/send-otp", {phoneNumber})
+    const response = await axios.post("http://localhost:4004/send-otp", {phoneNumber})
     // Clear form fields after submission if needed
     
     if(response.status=== 200){
+
         console.log(response.data);
         setError("")
+        
     }
-    
+
     }catch(error){
+
         if(error.response &&  error.response.data.error){
             setError(error.response.data.error)
         }
@@ -49,10 +55,18 @@ function VerifyOtp() {
 };
 
 const verifyOtp = async (e) =>{
+
     e.preventDefault()
     alert("verify")
-    const VerifyOtp = await axios.post("http://localhost:4004/verifyOTp",{otpNumber})
+
+    console.log(otp,phoneNumber);
+
+    const response = await axios.post("http://localhost:4004/verifyOTp",{otp,phoneNumber});
   }
+  
+
+
+  
 
   return (
     <div className="bg-black h-screen flex justify-center items-center">
@@ -76,7 +90,7 @@ const verifyOtp = async (e) =>{
             
             <button
             type="submit"
-            onClick={handleSubmit}
+            onClick={ handleSubmit}
             className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4  mt-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
           >
             Get OTP
@@ -90,21 +104,26 @@ const verifyOtp = async (e) =>{
               {otp.map((value, index) => (
                 <input
                   key={index}
-                  type="text"
+                  type="number"
                   id={`otp${index + 1}`}
                   name={`otp${index + 1}`}
                   maxLength="1"
                   value={value}
                   onChange={(e) => handleInputChange(index, e)}
+                  
                   ref={otpInputs[index]}
+
                   className="w-1/6 rounded px-3 py-2 bg-gray-800 border border-gray-700 text-white mr-2"
                 />
               ))}
             </div>
           </div>
           <button
+          
+        //   onSubmit={}
             type="submit"
             onClick={verifyOtp}
+           
             className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
           >
             Submit

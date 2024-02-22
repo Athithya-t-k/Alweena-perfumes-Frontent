@@ -1,5 +1,5 @@
 import React from 'react'
-import SignUp from '../Components/Userside/SignUp'
+import SignUp from '../Components/User/SignUp'
 import VerifyOtp from './VerifyOtp'
 
 
