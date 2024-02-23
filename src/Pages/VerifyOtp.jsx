@@ -1,11 +1,13 @@
 import axios from 'axios';
 import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function VerifyOtp() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [error,setError] = useState()
  
+ const navigate = useNavigate()
 
   const otpInputs = Array.from({ length: 6 }, () => useRef(null));
 
@@ -60,15 +62,33 @@ const verifyOtp = async (e) =>{
     alert("verify")
 
     console.log(otp,phoneNumber);
-
+try{
     const response = await axios.post("http://localhost:4004/verifyOTp",{otp,phoneNumber});
+
+    if(response.status=== 200){
+
+      console.log(response.data);
+      setError(response.data.message)
+     navigate('/')
+  }
+  }catch(error){
+
+    if(error.response &&  error.response.data.error){
+      setError(error.response.data.error)
+  }
+  else{
+      setError("Invalid otp Number.please try again")
+  }
+
   }
   
-
+}
 
   
 
   return (
+    <>
+    
     <div className="bg-black h-screen flex justify-center items-center">
       <div className="bg-black border border-gray-800 rounded p-8 shadow-lg max-w-md w-full">
         <h2 className="text-white text-2xl mb-4">OTP Validation</h2>
@@ -86,7 +106,7 @@ const verifyOtp = async (e) =>{
               onChange={(e) => setPhoneNumber(e.target.value)}
               className="block w-full rounded px-3 py-2 bg-gray-800 border border-gray-700 text-white"
             />
-            <div className='text-gray-50'>{error && (<div>{error}</div>)}</div>
+            
             
             <button
             type="submit"
@@ -127,11 +147,15 @@ const verifyOtp = async (e) =>{
             className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
           >
             Submit
+            
           </button>
+          <div className='text-gray-700'>{error && (<div>{error}</div>)}</div>
         </form>
       </div>
     </div>
+    </>
   );
+  
 }
 
 export default VerifyOtp;

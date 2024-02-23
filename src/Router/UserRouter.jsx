@@ -14,7 +14,7 @@ function RouterHome() {
            <Route path = "/signup" element = {<UserSignup/>}></Route>
            <Route path = "/login" element = {<UserLogin/>}></Route>
            <Route path = "/otp" element = {<VerifyOtp/>}></Route>
-           <Route path = "/restotp" element = {<Forgetpass/>}></Route>
+           <Route path = "/resetpass" element = {<Forgetpass/>}></Route>
         </Routes>
     </div>
   )
