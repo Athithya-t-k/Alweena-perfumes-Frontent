@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function VerifyOtp() {
+function ResetpassOtp() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [error,setError] = useState()
@@ -69,7 +69,7 @@ try{
 
       console.log(response.data);
       setError(response.data.message)
-     navigate('/')
+     navigate('/resetpass')
   }
   }catch(error){
 
@@ -149,7 +149,7 @@ try{
             Submit
             
           </button>
-          <div className='text-red-400'>{error && (<div>{error}</div>)}</div>
+          <div className='text-orange-400'>{error && (<div>{error}</div>)}</div>
         </form>
       </div>
     </div>
@@ -158,4 +158,4 @@ try{
   
 }
 
-export default VerifyOtp;
+export default ResetpassOtp;

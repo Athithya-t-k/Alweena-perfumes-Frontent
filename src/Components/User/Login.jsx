@@ -7,6 +7,7 @@ function Login() {
 
   const [username,setUsername]= useState("")
   const[password,setPassword]=useState("")
+  const [phoneNumber,setphoneNumber]= useState("")
   const [error,setError] = useState("")
 
   const backendUrl = "http://localhost:4004/login-post"
@@ -19,6 +20,7 @@ function Login() {
     try{
       await axios.post(backendUrl,{
         username,
+        phoneNumber,
         password
       });
       
@@ -54,6 +56,22 @@ function Login() {
                 placeholder="UserName"
               />
             </div>
+            <div>
+              <label htmlFor="phoneNumber" className="sr-only">
+                phoneNumber
+              </label>
+              <input
+                id="phoneNumber"
+                name="phoneNumber"
+                type="phoneNumber"
+                value ={phoneNumber}
+                onChange={(event)=>setphoneNumber(event.target.value)}
+                autoComplete="phoneNumber"
+                required
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                placeholder="phoneNumber"
+              />
+            </div>
             
             <div>
               <label htmlFor="password" className="sr-only">
@@ -73,7 +91,7 @@ function Login() {
             </div>
             
           </div>
-         <p><Link to = "/reset">Forget Password</Link></p>
+         <p><Link to = "/resetotp">Forget Password</Link></p>
           <div>
             <button className='bg-emerald-950 text-white w-16 h-10 rounded-xl'>Login
 
@@ -85,7 +103,7 @@ function Login() {
       </div>
 
     </div>
-    </div>
+    </div> 
   )
 }
 
